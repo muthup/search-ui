@@ -331,7 +331,7 @@ describe("AppSearchAPIConnector", () => {
       };
 
       await subject(state, queryConfig);
-      // eslint-disable-next-line no-unused-vars
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const [passedSearchTerm, passedOptions] = getLastSearchCall();
       expect(passedOptions).toEqual({
         page: {
@@ -417,7 +417,7 @@ describe("AppSearchAPIConnector", () => {
 
       const beforeSearchCall: SearchQueryHook = (options, next) => {
         // Remove sort_direction and sort_field
-        // eslint-disable-next-line no-unused-vars
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { sort, ...rest } = options;
         return next({
           ...rest,
@@ -483,7 +483,8 @@ describe("AppSearchAPIConnector", () => {
         const [passedSearchTerm, passedOptions] = getLastSearchCall();
         expect(passedSearchTerm).toEqual(state.searchTerm);
         expect(passedOptions).toEqual({
-          page: {}
+          page: {},
+          record_analytics: false
         });
       });
 
@@ -510,6 +511,7 @@ describe("AppSearchAPIConnector", () => {
         const [passedSearchTerm, passedOptions] = getLastSearchCall();
         expect(passedSearchTerm).toEqual(state.searchTerm);
         expect(passedOptions).toEqual({
+          record_analytics: false,
           page: {},
           result_fields: {
             title: { raw: {}, snippet: { size: 20, fallback: true } }
@@ -538,10 +540,11 @@ describe("AppSearchAPIConnector", () => {
         };
 
         await subject(state, queryConfig);
-        // eslint-disable-next-line no-unused-vars
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const [passedSearchTerm, passedOptions] = getLastSearchCall();
         expect(passedOptions).toEqual({
-          page: {}
+          page: {},
+          record_analytics: false
         });
       });
 
@@ -582,6 +585,7 @@ describe("AppSearchAPIConnector", () => {
               }
             ]
           },
+          record_analytics: false,
           page: {
             current: 2,
             size: 5
@@ -679,7 +683,7 @@ describe("AppSearchAPIConnector", () => {
           next
         ) => {
           // Remove sort_direction and sort_field
-          // eslint-disable-next-line no-unused-vars
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { sort, ...rest } = options;
           return next({
             ...rest,
@@ -693,6 +697,7 @@ describe("AppSearchAPIConnector", () => {
         expect(getLastSearchCall()).toEqual([
           state.searchTerm,
           {
+            record_analytics: false,
             page: {
               size: 5
             },
@@ -752,7 +757,7 @@ describe("AppSearchAPIConnector", () => {
               })
           }
         );
-        // eslint-disable-next-line no-unused-vars
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const [_, passedOptions] = getLastSuggestCall();
         expect(passedOptions).toEqual({ test: "value" });
       });
